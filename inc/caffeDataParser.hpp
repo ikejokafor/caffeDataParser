@@ -1,5 +1,5 @@
-#ifndef __CAFFE_DATA_PARSER_HPP__
-#define __CAFFE_DATA_PARSER_HPP__
+#pragma once
+
 
 #include <fcntl.h>
 #include <stdint.h>
@@ -20,19 +20,30 @@
 // caffe
 #include "caffe.pb.h"
 
-namespace caffeDataParser {
-    //	LayerTypes:
-    //		Input
-    //		Convolution
-    //		ReLU
-    //		Pooling_MAX
-    //		Pooling_AVE
-    //		InnerProduct
-    //		Softmax
-    //		Concat
-    //      Split
 
-    typedef struct {
+namespace caffeDataParser
+{
+    //	LayerTypes:
+    //      Input
+    //      Convolution
+    //      ReLU
+    //      Pooling_MAX
+    //      Pooling_AVE
+    //      Permute
+    //      Flatten
+    //      Eltwise
+    //      BatchNorm
+    //      Scale
+    //      DetectionOutput
+    //      PriorBox
+    //      Reshape
+    //      InnerProduct
+    //      Softmax
+    //      Concat
+    //      PSROIPoolingLayer
+
+    typedef struct
+    {
         std::string layerName;
         std::vector<std::string> topLayerNames;
         std::vector<std::string> bottomLayerNames;
@@ -57,9 +68,35 @@ namespace caffeDataParser {
     } layerInfo_t;
 }
 
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ *		@brief			function description
+ *		@param	param0	param0 description
+ *		@param	param1	param1 description
+ *		@return			0 success, 1 failure
+ */
+// --------------------------------------------------------------------------------------------------------------------------------------------------
 void GetLayerFilterAndBias(caffeDataParser::layerInfo_t *layerInfo, caffe::NetParameter wparam);
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ *		@brief			function description
+ *		@param	param0	param0 description
+ *		@param	param1	param1 description
+ *		@return			0 success, 1 failure
+ */
+// --------------------------------------------------------------------------------------------------------------------------------------------------
 std::vector<caffeDataParser::layerInfo_t> parseCaffeData(std::string protoFileName, std::string modelFileName);
+
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ *		@brief			function description
+ *		@param	param0	param0 description
+ *		@param	param1	param1 description
+ *		@return			0 success, 1 failure
+ */
+// --------------------------------------------------------------------------------------------------------------------------------------------------
 void printModelProtocalBuffer(std::string protoFileName, std::string modelFileName);
-
-
-#endif

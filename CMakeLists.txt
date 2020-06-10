@@ -23,11 +23,11 @@
 #       $ mkdir build/release
 #       $ cd build/release
 #       $ cmake ../../ -DCMAKE_BUILD_TYPE=Release
-#   
+#
 #####################################################################################################################################################
 
 # BEGIN CMAKE Version (Required Line) ---------------------------------------------------------------------------------------------------------------
-cmake_minimum_required (VERSION 3.10.1)
+cmake_minimum_required (VERSION 3.3.2)
 # END CMAKE Version ---------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -46,22 +46,6 @@ PROJECT(${TARGET_NAME})
 # END Set VS startup Project ------------------------------------------------------------------------------------------------------------------------
 
 
-# BEGIN Set Output Path for libs or bins ------------------------------------------------------------------------------------------------------------
-# Option 1) Executable
-#    SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES
-#                            RUNTIME_OUTPUT_DIRECTORY 
-#                            ${PROJECT_SOURCE_DIR}/<path>)
-# Option 2) Static lib                           
-#    SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES
-#                            LIBRARY_OUTPUT_DIRECTORY 
-#                            ${PROJECT_SOURCE_DIR}/<path>)
-# Option 3) Shared lib                           
-#    SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES
-#                            ARCHIVE_OUTPUT_DIRECTORY 
-#                            ${PROJECT_SOURCE_DIR}/<path>)                        
-# END Set Output Path for libs or bins --------------------------------------------------------------------------------------------------------------
-
-
 # BEGIN External CMake files ------------------------------------------------------------------------------------------------------------------------
 # Make sure include and lib directories are relative to home dir of this cmake file
 #ADD_SUBDIRECTORY(${PROJECT_SOURCE_DIR}/example/)
@@ -69,7 +53,7 @@ PROJECT(${TARGET_NAME})
 
 
 # BEGIN Target Sources ------------------------------------------------------------------------------------------------------------------------------
-FILE(GLOB TARGET_SRCS 
+FILE(GLOB TARGET_SRCS
     ${PROJECT_SOURCE_DIR}/src/*.c
     ${PROJECT_SOURCE_DIR}/src/*.cc
     ${PROJECT_SOURCE_DIR}/src/*.cpp
@@ -80,7 +64,7 @@ FILE(GLOB TARGET_SRCS
 
 # BEGIN Target Headers ------------------------------------------------------------------------------------------------------------------------------
 FILE(GLOB TARGET_HEADERS
-    ${PROJECT_SOURCE_DIR}/inc/*.h 
+    ${PROJECT_SOURCE_DIR}/inc/*.h
     ${PROJECT_SOURCE_DIR}/inc/*.hpp
     ${PROJECT_SOURCE_DIR}/inc/*.cuh
 )
@@ -102,6 +86,13 @@ ADD_LIBRARY(${TARGET_NAME} STATIC ${TARGET_SRCS} ${TARGET_HEADERS})
 # END Target Settings -------------------------------------------------------------------------------------------------------------------------------
 
 
+# BEGIN Set Output Path for libs or bins ------------------------------------------------------------------------------------------------------------
+SET_TARGET_PROPERTIES(${TARGET_NAME} PROPERTIES
+                       ARCHIVE_OUTPUT_DIRECTORY
+                       ${PROJECT_SOURCE_DIR}/build/debug)
+# END Set Output Path for libs or bins --------------------------------------------------------------------------------------------------------------
+
+
 # BEGIN Compiler Definitions ------------------------------------------------------------------------------------------------------------------------
 #add_definitions(-DCPU_ONLY)
 # END Compiler Definitions --------------------------------------------------------------------------------------------------------------------------
@@ -114,7 +105,7 @@ ADD_LIBRARY(${TARGET_NAME} STATIC ${TARGET_SRCS} ${TARGET_HEADERS})
 
 # BEGIN Debug / Release Settings --------------------------------------------------------------------------------------------------------------------
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Debug)
 endif()
 set(CMAKLE_CXX_FLAGS_DEBUG "-g")
 set(CMAKLE_CXX_FLAGS_RELEASE "-O3")
@@ -122,8 +113,8 @@ set(CMAKLE_CXX_FLAGS_RELEASE "-O3")
 
 
 # BEGIN Compiler Flags ------------------------------------------------------------------------------------------------------------------------------
-TARGET_COMPILE_OPTIONS(${TARGET_NAME} PUBLIC 
-    "-std=c++11" 
+TARGET_COMPILE_OPTIONS(${TARGET_NAME} PUBLIC
+    "-std=c++11"
     "-Wall"
     "-fexceptions"
 )
@@ -154,7 +145,6 @@ else()
 TARGET_LINK_LIBRARIES(${TARGET_NAME} PUBLIC
     -L/usr/local/lib/
     -L/usr/lib/
-    -lprotobuf
 )
 endif()
 # END Library Settings ------------------------------------------------------------------------------------------------------------------------------

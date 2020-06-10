@@ -10,7 +10,7 @@ import caffe
 
 def wb_extractor(deploy, cmodel):
 
-    caffe.set_mode_gpu()
+    caffe.set_mode_cpu()
 
     #load caffe reference model
     caffenet = caffe.Net(str(deploy), str(cmodel), caffe.TEST)
