@@ -156,6 +156,7 @@ TARGET_INCLUDE_DIRECTORIES(${TARGET_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/inc/
     /usr/local/include
     /usr/include/
+	$ENV{IZO5011_X86_DEV_TOOLS}/include/
 )
 # END Include directories ---------------------------------------------------------------------------------------------------------------------------
 
