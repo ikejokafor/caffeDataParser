@@ -65,6 +65,7 @@ namespace caffeDataParser
         float beta;
         int numFilterValues;
         int numBiasValues;
+        int dilation;
     } layerInfo_t;
 }
 
