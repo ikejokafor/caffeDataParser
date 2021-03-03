@@ -197,7 +197,7 @@ vector<layerInfo_t> parseCaffeData(string protoFileName, string modelFileName) {
 
                 // TODO
                 // GetLayerFilterAndBias(&layerInfo,  wparam);
-                layerInfo.dilation = lparam.convolution_param().dilation(0);
+                // layerInfo.dilation = lparam.convolution_param().dilation(0);
             }
             if (lparam.has_lrn_param()) {
                 layerInfo.localSize = lparam.lrn_param().local_size();
@@ -318,7 +318,7 @@ vector<layerInfo_t> parseCaffeData(string protoFileName, string modelFileName) {
                 layerInfo.group = lparam.convolution_param().group();
                 // TODO
                 // GetLayerFilterAndBias(&layerInfo, wparam);
-                layerInfo.dilation = v1lparam.convolution_param().dilation(0);
+                // layerInfo.dilation = v1lparam.convolution_param().dilation(0);
             }
             if (v1lparam.has_lrn_param()) {
                 layerInfo.localSize = v1lparam.lrn_param().local_size();
